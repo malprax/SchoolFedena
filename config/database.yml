@@ -1,0 +1,28 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: macbook
+  password: 
+  host: localhost
+  port: 5432
+    
+development: 
+  database: schoolapp_development
+  <<: *defaults 
+  
+
+test: &test
+  database: schoolapp_test 
+  <<: *defaults   
+
+# production:  
+#   database: contact_book_production
+#   <<: *defaults 
+# cucumber:
+#   <<: *test
