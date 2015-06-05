@@ -1,29 +1,55 @@
-== README
+#course
+  create_table "courses", :force => true do |t|
+    t.string   "course_name"
+    t.string   "code"
+    t.string   "section_name"
+    t.boolean  "is_deleted",   :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "grading_type"
+  end
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+  add_index "courses", ["grading_type"], :name => "index_courses_on_grading_type"
 
-Things you may want to cover:
+#batch
+  create_table "batches", :force => true do |t|
+    t.string  "name"
+    t.integer "course_id"
+    t.date    "started_on"
+    t.date    "ended_on",
+    t.boolean "is_active",   :default => true
+    t.boolean "is_deleted",  :default => false
+    #t.string  "employee_id"
+  end
 
-* Ruby version
+  add_index "batches", ["is_deleted", "is_active", "course_id", "name"], :name => "index_batches_on_is_deleted_and_is_active_and_course_id_and_name"
 
-* System dependencies
+#period_table_entry_id
+#attendances
+  create_table "attendances", :force => true do |t|
+    t.integer "student_id"
+    t.integer "period_table_entry_id"
+    t.boolean "forenoon",              :default => false
+    t.boolean "afternoon",             :default => false
+    t.string  "reason"
+    t.date    "month_date"
+    t.integer "batch_id"
+  end
 
-* Configuration
+#students
+  create_table "students", :force => true do |t|
+    t.string   "admission_no"
+    t.string   "class_roll_no"
+    t.date     "admission_date"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.integer  "batch_id"
+    t.date     "date_of_birth"
+    t.string   "gender"
+    t.string   "blood_group"
+    t.string   "birth_place"   
+  end
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
-#School Apps Fedena Revision In Rails 4
+  add_index "students", ["batch_id"], :name => "index_students_on_batch_id"
+  add_index "students", ["first_name", "middle_name", "last_name"], :name => "index_students_on_first_name_and_middle_name_and_last_name"

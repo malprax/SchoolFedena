@@ -1,0 +1,29 @@
+<div>
+  <div>
+    <%= form_for :user do |f| %>
+        <div>
+          <div class="field">
+            <%= f.label :username %> </br>
+            <%= f.text_field :username, :maxlength => 40 %>
+          </div>
+          <div class="field">
+            <%= f.label :password %> </br>
+            <%= f.password_field :password %>
+          </div>
+          <div id="notice-box">
+            <% if !flash.empty? %>
+                <div id="notice"><%=  flash[:notice] %></div>
+            <% end %>
+          </div> 
+          <div class="action">
+            <%= f.submit %>
+          </div>
+          <div class="field">
+            <%#= f.label :forgot_password %></br>
+            <%#= link_to :forgot_password, :controller => "user", :action => "forgot_password" %> 
+          </div>
+          
+        </div>
+    <% end %>
+  </div>
+</div>

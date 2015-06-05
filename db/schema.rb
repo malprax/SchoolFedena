@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602230926) do
+ActiveRecord::Schema.define(version: 20150603095919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "first_name"
@@ -27,8 +28,9 @@ ActiveRecord::Schema.define(version: 20150602230926) do
     t.string   "salt"
     t.string   "reset_password_code"
     t.datetime "reset_password_code_until"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.boolean  "is_deleted",                default: false
   end
 
 end

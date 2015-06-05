@@ -1,6 +1,34 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  
+  layout :choose_layout
+  def choose_layout
+    return 'login' if action_name == 'login' or action_name == 'set_new_password'
+    return 'forgotpw' if action_name == 'forgot_password'
+    return 'dashboard' if action_name == 'dashboard'
+    
+  end
+  
+  
+  
+  def login
+    @user = User.new(params[:user])
+    user = User.active.find_by(username: @user.username)
+    if user.present? and User.authenticate?(@user.username, @user.password)
+      authenticated_user = user
+    end
+    if authenticated_user.present?
+      successful_user_login(authenticated_user) and return
+    elsif authenticated_user.blank? and request.post?
+      flash[:notice] = "Invalid username or password combination"
+    end
+    
+  end
+  
+  def forgot_password
+    # if request.post? and params[:reset_password]
+    
+  end
   # GET /users
   # GET /users.json
   def index
